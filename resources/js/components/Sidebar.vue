@@ -13,14 +13,19 @@
         :theme="selectedTheme"
         :show-one-child="true"
         @toggle-collapse="onToggleCollapse"
-        @item-click="onItemClick"
-      />
+        @item-click="onItemClick">
+          <span slot="toggle-icon"><i class="fa fa-arrows-h" aria-hidden="true"></i>
+          </span>
+          <span slot="dropdown-icon"><i class="fa fa-angle-right" aria-hidden="true"></i>
+          </span>
+      </sidebar-menu>
 
       <div
         v-if="isOnMobile && !collapsed"
         class="sidebar-overlay"
         @click="collapsed = true"
       />
+
     </div>
   </div>
 </template>
@@ -38,74 +43,93 @@ export default {
       menu: [
         {
           header: true,
-          title: 'SIWI | ADMIN PAGE',
+          title: 'SIWI | ADMIN ',
           rtl:true,
           hiddenOnCollapse: true
-        },
+        },        
         {
-          header: false,
-          title: 'Akuntansi',
-          hiddenOnCollapse: true
-        },
+            title: 'Akuntansi',
+            icon: 'fa fa-square',
+            child: [
+                {
+                    href: '/akuntansiD3',
+                    title: 'D-III Akuntansi'
+                },
+                {
+                    href: '/akuntansiD3-AP',
+                    title: 'D-III Akuntansi Alih Program'
+                },
+                {
+                    href: '/akuntansiD4-AP-AKT',
+                    title: 'D-IV Akuntansi Alih Program (AKT)'
+                },
+                {
+                    href: '/akuntansiD4-AP-NAKT',
+                    title: 'D-IV Akuntansi Alih Program (Non AKT)'
+                }
+            ]
+        },        
         {
-          href: '/akuntansiD3',
-          title: 'D III Akuntansi',
-          icon: 'fa fa-download'
-        },
+            title: 'Pajak',
+            icon: 'fa fa-square-o',
+            child: [
+                {
+                    href: '/pajakD3',
+                    title: 'D-III Pajak'
+                },
+                {
+                    href: '/pbbD3',
+                    title: 'D-III PBB / Penilai'
+                },
+                {
+                    href: '/pajakD3-AP',
+                    title: 'D-III Pajak Alih Program'
+                },
+                {
+                    href: '/pajakD1',
+                    title: 'D-I Pajak'
+                }
+            ]
+        },     
         {
-          header: false,
-          title: 'Pajak',
-          hiddenOnCollapse: true
-        },
+            title: 'Kepabeanan dan Cukai',
+            icon: 'fa fa-circle',
+            child: [
+                {
+                    href: '/beacukaiD3',
+                    title: 'D-III Kepabeanan dan Cukai'
+                },
+                {
+                    href: '/beacukaiD3-AP',
+                    title: 'D-III Kepabeanan dan Cukai Alih Program'
+                },
+                {
+                    href: '/beacukaiD1',
+                    title: 'D-I Kepabeanan dan Cukai'
+                }
+            ]
+        },     
         {
-          href: '/pajakD3',
-          title: 'D III Pajak',
-          icon: 'fa fa-cogs'
-        },
-        {
-          href: '/pajakD1',
-          title: 'D I Pajak',
-          icon: 'fa fa-cogs'
-        },
-        {
-          href: '/pbbD3',
-          title: 'D III PBB / Penilai',
-          icon: 'fa fa-bell'
-        },
-        {
-          header: false,
-          title: 'Bea Cukai',
-          hiddenOnCollapse: true
-        },
-        {
-          href: '/beacukaiD3',
-          title: 'D III Bea Cukai',
-          icon: 'fa fa-palette'
-        },
-        {
-          href: '/beacukaiD1',
-          title: 'D I Bea Cukai',
-          icon: 'fa fa-palette'
-        },
-        {
-          header: false,
-          title: 'Manajemen Keuangan',
-          hiddenOnCollapse: true
-        },
-        {
-          href: '/kbnD3',
-          title: 'D III KBN',
-          icon: 'fa fa-cogs'
-        },
-        {
-          href: '/kbnD1',
-          title: 'D I KBN',
-          icon: 'fa fa-cogs'
-        },
-        {
-          href: '/mansetD3',
-          title: 'D III Man Aset',
-          icon: 'fa fa-bell'
+            title: 'Manajemen Keuangan',
+            icon: 'fa fa-circle-o',
+            child: [
+                {
+                    href: '/kbnD3',
+                    title: 'D-III Kebendaharaan Negara'
+                },
+                {
+                    href: '/mansetD3',
+                    title: 'D-III Manajemen Aset'
+                },
+                {
+                    href: '/kbnD3-AP',
+                    title: 'D-III Kebendaharaan Negara Alih Program'
+                },
+                {
+                    href: '/kbnD1',
+                    title: 'D-I Kebendaharaan Negara'
+                }
+            ]
         },
 
       ],
@@ -135,9 +159,6 @@ export default {
     },
     onItemClick (event, item, node) {
       console.log('onItemClick')
-      // console.log(event)
-      // console.log(item)
-      // console.log(node)
     },
     onResize () {
       if (window.innerWidth <= 767) {
@@ -169,17 +190,15 @@ body {
 }
 
 #demo {
-  padding-left: 350px;
-  margin-left: 300px;
+  font-size:11px;
+  padding-left: 48%;
   transition: 0.3s ease;
 }
 #demo.collapsed {
-  padding-left: 10px;
-  margin-left: 50px;
+  padding-left: 1%;
 }
 #demo.onmobile {
-  padding-left: 550px;
-  margin-left: 300px;
+  padding-left: 250%;
 }
 
 .sidebar-overlay {
@@ -220,4 +239,10 @@ pre {
     white-space: nowrap;
     text-transform: uppercase;
 }
+.v-sidebar-menu{
+    background-color: #464646;;
+}
+// .v-sidebar-menu .vsm--arrow {
+//   visibility :0;
+// }
 </style>

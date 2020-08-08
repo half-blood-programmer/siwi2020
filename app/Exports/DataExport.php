@@ -17,15 +17,66 @@ class DataExport implements  WithHeadings, ShouldAutoSize, FromQuery, WithEvents
 {
     use Exportable;
 
-    public function __construct(int $prodi_id)
+    public function __construct(int $prodi)
     {
-        $this->prodi_id = $prodi_id;
+        switch( $prodi )
+        {
+            case 1:
+                    $this->prodi = "D-III Akuntansi";
+                    break;
+            case 2:
+                    $this->prodi = "D-III Pajak";
+                    break;
+            case 3:
+                    $this->prodi = "D-I Pajak";
+                    break;
+            case 4:
+                    $this->prodi = "D-III PBB/Penilai";
+                    break;
+            case 5:
+                    $this->prodi = "D-III Kepabeanan dan Cukai";
+                    break;
+            case 6:
+                    $this->prodi = "D-I Kepabeanan dan Cukai";
+                    break;
+            case 7:
+                    $this->prodi = "D-III Kebendaharaan Negara";
+                    break;
+            case 8:
+                    $this->prodi = "D-I Kebendaharaan Negara";
+                    break;
+            case 9:
+                    $this->prodi = "D-III Manajemen Aset";
+                    break;
+            case 10:
+                    $this->prodi = "D-III Akuntansi Alih Program";
+                    break;
+            case 11:
+                    $this->prodi = "D-III Kebendaharaan Negara Alih Program";
+                    break;
+            case 12:
+                    $this->prodi = "D-III Kepabeanan dan Cukai Alih Program";
+                    break;
+            case 13:
+                    $this->prodi = "D-III Pajak Alih Program";
+                    break;
+            case 14:
+                    $this->prodi = "D-IV Akuntansi Alih Program (Non AKT)";
+                    break;
+            case 15:
+                    $this->prodi = "D-IV Akuntansi Alih Program (AKT)";
+                    break;
+            default:
+                    $this->prodi = " ";
+                    break;
+        }
+        
     }
     public function registerEvents(): array
     {
         return [
             AfterSheet::class    => function(AfterSheet $event) {
-                $cellRange = 'A1:J1'; // All headers
+                $cellRange = 'A1:T1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
             },
         ];
@@ -33,20 +84,28 @@ class DataExport implements  WithHeadings, ShouldAutoSize, FromQuery, WithEvents
 
     public function query()
     {
-        return Mahasiswa::query()->where('prodi_id', $this->prodi_id)
-        ->join('users', 'users.id', '=', 'mahasiswas.id')
-        ->join('alamats', 'alamats.id' , '=', 'mahasiswas.id')
-        ->join('togas', 'togas.id', '=', 'mahasiswas.id')
+        return Mahasiswa::query()->where('prodi', $this->prodi)
+        ->leftJoin('users', 'users.npm', '=', 'mahasiswas.npm')
+        ->leftJoin('togas', 'togas.UserId', '=', 'mahasiswas.id')
+        ->leftJoin('alamats', 'togas.UserId', '=', 'mahasiswas.id')
         ->select('mahasiswas.id',
-                    'mahasiswas.name',
-                    'mahasiswas.jenis_kelamin',
+                    'mahasiswas.nama',
+                'users.email',
+                    'mahasiswas.jenisKelamin',
                     'mahasiswas.npm',
                     'mahasiswas.kelas',
-                'togas.size_toga',
+                    'mahasiswas.absen',
+                'alamats.sizeToga',
                 'alamats.alamat',
-                'alamats.kode_pos',
-                    'togas.nama_ayah',
-                    'togas.nama_ibu');
+                'alamats.provinsi',
+                'alamats.kota',
+                'alamats.kecamatan',
+                'alamats.kelurahan',
+                'alamats.kodepos',
+                'alamats.nomorWhatsapp',
+                    'togas.namaAyah',
+                    'togas.namaIbu',
+                    'togas.photo');
     }
 
   public function headings(): array
@@ -54,14 +113,22 @@ class DataExport implements  WithHeadings, ShouldAutoSize, FromQuery, WithEvents
         return [
             'id',
             'Nama',
+            'Email',
             'JK',
             'NPM',
             'Kelas',
+            'Absen',
             'Size Toga ',
             'Alamat',
+            'Provinsi',
+            'Kota',
+            'Kecamatan',
+            'Kelurahan',
             'Kode Pos',
+            'No Whatsapp',
             'Nama Ayah',
-            'Nama Ibu'
+            'Nama Ibu',
+            'Photo'
         ];
     }
 }

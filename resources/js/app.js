@@ -45,12 +45,18 @@ import VueRouter from 'vue-router'
 import Apps from './components/Sidebar.vue'
 
 import AkuntansiD3 from './components/datas-views/AkuntansiD3.vue'
+import AkuntansiD3AP from './components/datas-views/AkuntansiD3-ap.vue'
+import AkuntansiD4APAKT from './components/datas-views/AkuntansiD4-ap-akt.vue'
+import AkuntansiD4APNAKT from './components/datas-views/AkuntansiD4-ap-nakt.vue'
 import PajakD3 from './components/datas-views/PajakD3.vue'
+import PajakD3AP from './components/datas-views/PajakD3-ap.vue'
 import PajakD1 from './components/datas-views/PajakD1.vue'
 import PbbD3 from './components/datas-views/PbbD3.vue'
 import BeacukaiD3 from './components/datas-views/BeacukaiD3.vue'
+import BeacukaiD3AP from './components/datas-views/BeacukaiD3-ap.vue'
 import BeacukaiD1 from './components/datas-views/BeacukaiD1.vue'
 import KbnD3 from './components/datas-views/KbnD3.vue'
+import KbnD3AP from './components/datas-views/KbnD3-ap.vue'
 import KbnD1 from './components/datas-views/KbnD1.vue'
 import MansetD3 from './components/datas-views/MansetD3.vue'
 
@@ -60,6 +66,26 @@ Vue.use(VueSidebarMenu)
 const router = new VueRouter({
   routes: [
     {
+      path: '/',
+      name: 'D III Akuntansi',
+      component: AkuntansiD3
+    },
+    {
+      path: '/akuntansiD3-AP',
+      name: 'D III Akuntansi Alih Program',
+      component: AkuntansiD3AP
+    },
+    {
+      path: '/akuntansiD4-AP-AKT',
+      name: 'D IV Akuntansi Alih Program (AKT)',
+      component: AkuntansiD4APAKT
+    },
+    {
+      path: '/akuntansiD4-AP-NAKT',
+      name: 'D IV Akuntansi Alih Program (Non AKT)',
+      component: AkuntansiD4APNAKT
+    },
+    {
       path: '/akuntansiD3',
       name: 'D III Akuntansi',
       component: AkuntansiD3
@@ -68,6 +94,11 @@ const router = new VueRouter({
       path: '/pajakD3',
       name: 'PajakD3',
       component: PajakD3
+    },
+    {
+      path: '/pajakD3-AP',
+      name: 'D III Pajak Alih Program',
+      component: PajakD3AP
     },
     {
       path: '/pajakD1',
@@ -85,7 +116,12 @@ const router = new VueRouter({
       component: BeacukaiD3
     },
     {
-      path: '/pajakD1',
+      path: '/beacukaiD3-AP',
+      name: 'D III Kepabeanan dan Cukai Alih Program',
+      component: BeacukaiD3AP
+    },
+    {
+      path: '/beacukaiD1',
       name: 'BeacukaiD1',
       component: BeacukaiD1
     },
@@ -93,6 +129,11 @@ const router = new VueRouter({
       path: '/kbnD3',
       name: 'KbnD3',
       component: KbnD3
+    },
+    {
+      path: '/kbnD3-AP',
+      name: 'D III Kebendaharaan Negara Alih Program',
+      component: KbnD3AP
     },
     {
       path: '/kbnD1',

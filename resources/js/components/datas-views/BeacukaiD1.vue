@@ -6,10 +6,10 @@
                     <div class="card-header">
                     <div class="row">
                         <div class="col-md-9">
-                            <h5 class="card-title">D I Bea Cukai</h5>
+                            <h5 class="card-title">D I Kepabeanan dan Cukai</h5>
                         </div>
                         <div class="col-md-3">
-                            <a href="/download_data/8/D1Beacukai"><button class="btn btn-outline-primary btn-sm" style="float:right">
+                            <a href="/download_data/6/D-I_BC"><button class="btn btn-outline-primary btn-sm" style="float:right">
                                 Export to Excel</button>
                             </a>
                         </div>
@@ -41,23 +41,30 @@ import axios from 'axios'
 
 export default {
     created() {
-        this.loadPostsData(8)
+        this.loadPostsData(6)
     },
     data() {
         return {
             fields: [
                 {key: 'id', sortable: true},
-                {key: 'name', sortable: true},
+                {key: 'nama', sortable: true},
                 {key: 'email', sortable: true},
-                {key: 'jenis_kelamin', sortable: false},
+                {key: 'jenisKelamin', sortable: false},
                 {key: 'npm', sortable: true},
                 {key: 'kelas', sortable: true},
-                {key: 'size_toga', sortable: false},
+                {key: 'absen', sortable: false},
+                {key: 'sizeToga', sortable: false},
                 {key: 'alamat', sortable: false},
-                {key: 'kode_pos', sortable: false},
-                {key: 'nama_ayah', sortable: false},
-                {key: 'nama_ibu', sortable: false},
-                {key: 'actions', sortable: false}
+                {key: 'provinsi', sortable: true},
+                {key: 'kota', sortable: true},
+                {key: 'kecamatan', sortable: true},
+                {key: 'kelurahan', sortable: true},
+                {key: 'kodepos', sortable: false},
+                {key: 'nomorWhatsapp', sortable: false},
+                {key: 'namaAyah', sortable: false},
+                {key: 'namaIbu', sortable: false},
+                {key: 'photo', sortable: false}//,
+                //{key: 'actions', sortable: false}
             ],
             items: [],
             meta: [],
@@ -97,23 +104,29 @@ export default {
                 }
             })
         },
+        deletePostData(id) {
+            axios.delete(`delete/${id}`).then(() => this.loadPostsData())
+        },
         handlePerPage(val) {
             this.per_page = val
-            this.loadPostsData()
+            this.loadPostsData(6)
         },
         handlePagination(val) {
             this.current_page = val
-            this.loadPostsData()
+            this.loadPostsData(6)
         },
         handleSearch(val) {
             this.search = val
-            this.loadPostsData()
+            this.loadPostsData(6)
         },
         handleSort(val) {
             this.sortBy = 'mahasiswas.'.val.sortBy
             this.sortByDesc = 'mahasiswas.'.val.sortDesc
 
-            this.loadPostsData()
+            this.loadPostsData(6)
+        },
+        handleDelete(val) {
+            this.deletePostData(val.id)
         }
     }
 }

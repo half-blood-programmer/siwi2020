@@ -24,6 +24,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/datas/{id}', 'UserController@index');
-Route::get('download_data/{prodi_id}/{name_data}', 'UserController@download_data');
+Route::get('download_data/{prodi}/{name_data}', 'UserController@download_data');
 Route::delete('/delete/{id}', 'UserController@destroy');
 
